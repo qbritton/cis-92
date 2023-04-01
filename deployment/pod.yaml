@@ -1,12 +1,15 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: hello-pod
+  name: mysite
   labels:
     function: webserver
 spec:
   containers:
   - name: httpd
-    image: docker.io/httpd:latest
+    image: ghcr.io/qbritton/cis-92:milestone-4.3
+    env:
+    - name: SECRET_KEY
+      value: "mysecretkey"
     ports:
     - containerPort: 80
