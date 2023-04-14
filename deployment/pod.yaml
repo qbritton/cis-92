@@ -7,9 +7,28 @@ metadata:
 spec:
   containers:
   - name: httpd
-    image: ghcr.io/qbritton/cis-92:milestone-4.3
+    image: ghcr.io/qbritton/cis-92:milestone-5.1
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "250m"
+      limits:
+        memory: "1Gi"
+        cpu: "1000m"
     env:
     - name: SECRET_KEY
       value: "mysecretkey"
+    - name: DB_NAME
+      value: "mysite"
+    - name: DB_USER
+      value: "postgres"
+    - name: DB_PASSWORD
+      value: "django"
+    - name: DB_HOST
+      value: "postgres"
     ports:
     - containerPort: 80
+    livenessProbe:
+      httpGet:
+        path: /polls/
+        port: 8080
